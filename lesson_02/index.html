@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 1. Дан код:
+    // var a = 1, b = 1, c, d;
+    // c = ++a; alert(c);           // 2
+      // a равен 1, a  увеличивается на 1 до сохранения в с, значит, в с сохраняется 2
+    // d = b++; alert(d);           // 1
+      // b равен 1, b увеличивается на 1 после сохранения в d, значит, в d сохраняется 1
+    // c = (2+ ++a); alert(c);      // 5
+      // a равно 2, а увеличивается на 1 и равно 3, потом к 2 прибавляем а (3) и получаем 5
+    // d = (2+ b++); alert(d);      // 4
+      // b равен 2, к b прибавляем 2, получаем 4. После чего увеличиваем b и теперь оно равно 3
+    // alert(a);                    // 3
+      // выше в "с = ..." а стало равно 3м после ++a
+    // alert(b);                    // 3
+      // выше после b++ b стало равно 3м
+    // Почему код даёт именно такие результаты?
+
+    // 2. Чему будет равен x в примере ниже?
+    // var a = 2;
+    // var x = 1 + (a *= 2);
+      // x будет равен 5
+
+    // 3. Объявить две целочисленные переменные a и b и задать им произвольные начальные значения. 
+    // Затем написать скрипт, который работает по следующему принципу:
+    var a = 1;
+    var b = 2;
+    // если a и b положительные, вывести их разность;
+    if (a > 0 && b > 0) { document.write(`a - b = ${a-b}<br>`) }
+    // если а и b отрицательные, вывести их произведение;
+    if (a < 0 && b < 0) { document.write(`a * b = ${a*b}<br>`) }
+    // если а и b разных знаков, вывести их сумму; ноль можно считать положительным числом.
+    if (a > 0 && b < 0 || a < 0 && b > 0) { document.write(`a + b = ${a+b}<br>`) }
+    if (a * b < 0) { document.write(`a + b = ${a+b}<br>`) }
+
+    // 4. Присвоить переменной а значение в промежутке [0..15].
+    // С помощью оператора switch организовать вывод чисел от a до 15.
+    var a = (Math.random() * 15).toFixed(0);
+    function _print(_a) {
+      if (_a <= 15) { 
+        document.write(`${_a}<br>`);
+        _a += 1;
+        _print(_a);
+      }
+      return;
+    }
+    _print(a);
+
+    // 5. Реализовать основные 4 арифметические операции в виде функций с двумя параметрами.
+    // Обязательно использовать оператор return.
+    function _sum(a,b) { return a+b; }
+    function _sub(a,b) { return a-b; }
+    function _mul(a,b) { return a*b; }
+    function _div(a,b) { return a/b; }
+    var a = 2;
+    var b = 3;
+    document.write(`_sum(a,b): ${_sum(a,b)}<br>`);
+    document.write(`_sub(a,b): ${_sub(a,b)}<br>`);
+    document.write(`_mul(a,b): ${_mul(a,b)}<br>`);
+    document.write(`_div(a,b): ${_div(a,b)}<br>`);
+
+    // 6. Реализовать функцию с тремя параметрами: function mathOperation(arg1, arg2, operation),
+    // где arg1, arg2 – значения аргументов, operation – строка с названием операции.
+    // В зависимости от переданного значения операции выполнить одну из арифметических операций
+    // (использовать функции из пункта 3) и вернуть полученное значение (использовать switch).
+    function mathOperation(a, b, operation) {
+      switch (operation) {
+        case "_sum": return _sum(a,b);
+        case "_sub": return _sub(a,b);
+        case "_mul": return _mul(a,b);
+        case "_div": return _div(a,b);
+      }
+    }
+    var a = 2;
+    var b = 3;
+    document.write(`mathOperation(a,b,"_sum"): ${mathOperation(a,b,"_sum")}<br>`);
+    document.write(`mathOperation(a,b,"_sub"): ${mathOperation(a,b,"_sub")}<br>`);
+    document.write(`mathOperation(a,b,"_mul"): ${mathOperation(a,b,"_mul")}<br>`);
+    document.write(`mathOperation(a,b,"_div"): ${mathOperation(a,b,"_div")}<br>`);    
+
+    // 7) *Сравнить null и 0. Попробуйте объяснить результат.
+    document.write(`null == 0: ${null == 0}<br>`);
+    document.write(`null === 0: ${null === 0}<br>`);
+    document.write(`null > 0: ${null > 0}<br>`);
+    document.write(`null < 0: ${null < 0}<br>`);
+    // null - самостоятельный тип данных с одним возможным значением null, поэтому его нельзя сравнить с number: null не приводится к number
+
+    // 8) *С помощью рекурсии организовать функцию возведения числа в степень. Формат: function power(val, pow),
+    // где val – заданное число, pow – степень.
+    // упростил себе задачу - сделал только для целочисленной положительной степени
+    function power(val, pow, res=1) {
+      res *= val;
+      pow -= 1;
+      if (pow) { return power(val, pow, res); }
+      return res;
+    }
+    document.write(`power(2, 2): ${power(2, 2)}<br>`);
+    document.write(`power(2, 3): ${power(2, 3)}<br>`);
+    document.write(`power(2, 4): ${power(2, 4)}<br>`);
+    document.write(`power(1, 1): ${power(1, 1)}<br>`);
+  </script>
+  
+</body>
+</html>
