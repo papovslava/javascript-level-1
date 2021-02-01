@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 03</title>
+</head>
+<body>
+  <script>
+    // 1. С помощью цикла while вывести все простые числа в промежутке от 0 до 100
+    function isSimpleNumeric(numeric) {
+      var lim;
+
+      if (numeric < 2) return false;
+      lim = numeric/2 + 1;
+      for (var divider = 2; divider < lim; divider++) if (numeric % divider === 0) return false; 
+      return true;
+    }
+
+    var val = 0;
+    var lim = 100;
+
+    document.write(`In a range from ${val} to ${lim} simple numerics are: `);
+    for (; val <= lim; val++) {
+      if (isSimpleNumeric(val)) document.write(`${val} `); 
+    }
+    document.write(`<br>`);
+
+
+    // 2. С этого урока начинаем работать с функционалом интернет-магазина.
+    // Предположим, есть сущность корзины. 
+    // Нужно реализовать функционал подсчета стоимости корзины в зависимости от находящихся в ней товаров.
+    // 3. Товары в корзине хранятся в массиве. Задачи:
+    // a) Организовать такой массив для хранения товаров в корзине;
+    // b) Организовать функцию countBasketPrice, которая будет считать стоимость корзины.    
+    var basket;
+
+    basket = [
+      {'name': 'name', 'amount': 1, 'price': 100},
+      {'name': 'name', 'amount': 2, 'price': 200},
+      {'name': 'name', 'amount': 1, 'price': 300},
+      {'name': 'name', 'amount': 3, 'price': 400},
+    ];
+
+    function countBasketPrice(basket) {
+      var totalPrice = 0;
+      
+      for (var i = 0; i < basket.length; i++) { 
+        var item = basket[i];
+        totalPrice += item['price'] * item['amount'];
+      }
+
+      return totalPrice;
+      // alternative
+      // return goodsInBasket.reduce((sum, item) => sum + item['price'] * item['amount'], 0);
+    }
+
+    document.write(`The total price of all goods in the basket is ${countBasketPrice(basket)}<br>`);
+
+   
+    // 4.*Вывести с помощью цикла for числа от 0 до 9, не используя тело цикла. Выглядеть это должно так:
+    // for(…){// здесь пусто}
+    for (var i = 0; i <= 9; document.write(`${i++} `)) ;
+
+    
+    // 4) *Нарисовать пирамиду с помощью console.log, как показано на рисунке, 
+    // только у вашей пирамиды должно быть 20 рядов, а не 5:
+    // x
+    // xx
+    // xxx
+    // xxxx
+    // xxxxx
+    // es5 one liner
+    for (var i = 1; i <= 20; i++) console.log(Array.apply(null, Array(i)).map(function(){return 'x'}).join(''));
+    // es6 one liner
+    for (var i = 1; i <= 20; i++) console.log('x'.repeat(i));
+
+  </script>
+</body>
+</html>
