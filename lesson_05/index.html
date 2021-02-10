@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 05</title>
+  <style>
+    .chessBoard {
+      display: grid;
+      grid-template-columns: 50px 100px 100px 100px 100px 100px 100px 100px 100px 50px;
+      grid-template-rows: 50px 100px 100px 100px 100px 100px 100px 100px 100px 50px;
+      border: 1px solid black;
+      width: fit-content;
+      background-color: bisque;
+    }
+    .frameCell, 
+    .playFieldCell {
+      font-size: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .playField {
+      grid-column-start: 2;
+      grid-column-end: 10;
+      grid-row-start: 2;
+      grid-row-end: 10;
+
+      display: grid;
+      grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px;
+      grid-template-rows: 100px 100px 100px 100px 100px 100px 100px 100px;
+      border: 1px solid black;
+      width: max-content;;    
+    }
+    .frameCell:nth-child(-n+10),
+    .frameCell:nth-child(2n+11) {
+      transform: rotate(180deg);
+    }
+    .frameCell:nth-child(n+28) {
+      transform: rotate(0deg);
+    }
+    .col-1 { background-color: bisque; }
+    .col-2 { background-color: white; }
+  </style>
+</head>
+<body>
+  <script>
+    document.getElementsByTagName('body')[0].appendChild(buildChessBoard());
+
+    function buildChessBoard() {
+      var chessBoardElem = document.createElement('div');
+      var playFieldElem = document.createElement('div');
+      var chessSymbols = {
+        'black': ['♟','♟','♟','♟','♟','♟','♟','♟','♜','♞','♝','♚','♛','♝','♞','♜'],
+        'white': ['♖','♘','♗','♔','♕','♗','♘','♖','♙','♙','♙','♙','♙','♙','♙','♙']
+      }
+      var coordsH = 'HGFEDCBA'.repeat(2).split('');
+      var coordsV = '1122334455667788'.split('');
+
+      chessBoardElem.classList.add('chessBoard');
+      playFieldElem.classList.add('playField');
+      
+      for (var rowNum = 0; rowNum < 8; rowNum++) {
+        var isOddRow = rowNum % 2;
+        for (var colNum = 0; colNum < 8; colNum++) {
+          var playFieldCellElem = document.createElement('div');
+          var colorClassName = 'col-2';
+
+          playFieldCellElem.classList.add('playFieldCell');
+
+          if (rowNum < 2) { playFieldCellElem.innerText = chessSymbols['black'].pop(); }
+          if (rowNum > 5) { playFieldCellElem.innerText = chessSymbols['white'].pop(); }
+          if ((colNum - +isOddRow) % 2) { colorClassName = 'col-1'; }
+          playFieldCellElem.classList.add(colorClassName);
+
+          playFieldElem.appendChild(playFieldCellElem);
+        }
+      }
+      chessBoardElem.appendChild(playFieldElem);
+      
+      for (var i = 0; i < 10 + 8 + 8 + 10; i++) {
+        var frameCellElem = document.createElement('div');
+        var content = '';
+
+        frameCellElem.classList.add('frameCell');
+
+        if (i >= 10 && i <= 25) { content = coordsV.pop(); }
+        // alternative way
+        // if (i >= 10 && i <= 25) { content = ~~(8 - (i - 10 - i % 2) / 2); }
+        if (i >= 1 && i <= 8 || i >= 27 && i <= 34) { content = coordsH.pop(); }
+        // alternative way
+        // if (i >= 1 && i <= 8 || i >= 27 && i <= 34) { content = String.fromCharCode(64 + (i % 26)); }
+        frameCellElem.innerText = content;
+
+        chessBoardElem.appendChild(frameCellElem);
+      }
+
+      return chessBoardElem;
+    }
+  </script>
+</body>
+</html>
