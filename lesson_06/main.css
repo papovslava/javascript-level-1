@@ -1,0 +1,21 @@
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item {
+  flex-basis: 30em;
+  padding: 2.5em;
+}
+
+.item_cover {
+  width: 100%;
+}
+
+.notification {
+  background-color: yellow;
+  border-radius: 3px;
+  margin: 25px;
+  text-align: center;
+}
